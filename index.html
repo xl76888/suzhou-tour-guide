@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>苏州一日游攻略 - 动画版</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
+        }
+
+        @keyframes weatherAnimation {
+            0% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(5deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        @keyframes carMove {
+            0% { transform: translateX(-100%) rotateY(0deg); }
+            45% { transform: translateX(0%) rotateY(0deg); }
+            50% { transform: translateX(0%) rotateY(180deg); }
+            95% { transform: translateX(-100%) rotateY(180deg); }
+            100% { transform: translateX(-100%) rotateY(0deg); }
+        }
+
+        @keyframes sunRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease-in;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .travelers {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .traveler {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 5px;
+            box-shadow: 0 0 15px rgba(37, 117, 252, 0.5);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .avatar::before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: rotate(45deg) translate(-50%, -50%);
+            animation: shine 2s infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: rotate(45deg) translate(-100%, -100%);
+            }
+            100% {
+                transform: rotate(45deg) translate(100%, 100%);
+            }
+        }
+
+        .avatar:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px rgba(37, 117, 252, 0.8);
+        }
+
+        .avatar i {
+            font-size: 30px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .traveler span {
+            font-size: 14px;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            font-weight: bold;
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            padding: 3px 10px;
+            border-radius: 15px;
+            margin-top: 5px;
+        }
+
+        .weather-card {
+            background: linear-gradient(135deg, #00b4db, #0083b0);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .weather-icon {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 4em;
+            animation: sunRotate 10s linear infinite;
+            color: #FFD700;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #1890ff;
+        }
+
+        .timeline-item {
+            margin-bottom: 30px;
+            padding-left: 50px;
+            position: relative;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            background: #1890ff;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 0 0 3px #1890ff;
+        }
+
+        .car-animation {
+            height: 120px;
+            margin: 20px 0;
+            position: relative;
+            background: linear-gradient(to bottom, 
+                #87CEEB 0%, #87CEEB 60%, 
+                #90EE90 60%, #90EE90 100%);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* 添加云朵动画 */
+        .cloud {
+            position: absolute;
+            font-size: 24px;
+            color: white;
+            animation: cloudFloat 15s linear infinite;
+            opacity: 0.8;
+        }
+
+        .cloud:nth-child(1) { top: 20%; animation-delay: 0s; }
+        .cloud:nth-child(2) { top: 10%; animation-delay: -5s; }
+        .cloud:nth-child(3) { top: 30%; animation-delay: -10s; }
+
+        @keyframes cloudFloat {
+            from { right: -50px; }
+            to { right: 100%; }
+        }
+
+        /* 添加树木动画 */
+        .tree {
+            position: absolute;
+            bottom: 40%;
+            font-size: 28px;
+            color: #228B22;
+            animation: treeMove 8s linear infinite;
+        }
+
+        .tree:nth-child(1) { animation-delay: 0s; }
+        .tree:nth-child(2) { animation-delay: -2.6s; }
+        .tree:nth-child(3) { animation-delay: -5.2s; }
+
+        @keyframes treeMove {
+            from { right: -50px; }
+            to { right: 100%; }
+        }
+
+        /* 优化汽车动画 */
+        .car {
+            position: absolute;
+            bottom: 25%;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: carBounce 1s ease-in-out infinite;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .car i {
+            font-size: 2.5em;
+            color: #1890ff;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+        }
+
+        /* 添加车轮影子效果 */
+        .car::after {
+            content: '';
+            width: 40px;
+            height: 10px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 50%;
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: shadowScale 1s ease-in-out infinite;
+        }
+
+        @keyframes carBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+
+        @keyframes shadowScale {
+            0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.5; }
+            50% { transform: translateX(-50%) scale(0.8); opacity: 0.3; }
+        }
+
+        /* 添加道路标记 */
+        .road-mark {
+            position: absolute;
+            bottom: 30%;
+            width: 30px;
+            height: 4px;
+            background: white;
+            animation: roadMove 2s linear infinite;
+        }
+
+        @keyframes roadMove {
+            from { right: -50px; }
+            to { right: 100%; }
+        }
+
+        .location {
+            background: #f6f6f6;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #1890ff;
+        }
+
+        .location h4 {
+            margin-top: 0;
+            color: #1890ff;
+        }
+
+        .spot-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .spot-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .spot-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .spot-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .spot-info {
+            padding: 15px;
+        }
+
+        .spot-info h4 {
+            color: #1890ff;
+            margin: 0 0 10px 0;
+        }
+
+        .spot-info p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .spot-details {
+            margin-top: 10px;
+        }
+
+        .tips {
+            background: #e6f7ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+            border: 1px solid #91d5ff;
+        }
+
+        .tips h3 {
+            color: #1890ff;
+            margin-top: 0;
+        }
+
+        .tips ul {
+            padding-left: 20px;
+        }
+
+        .tips li {
+            margin-bottom: 10px;
+        }
+
+        .tips li i {
+            margin-right: 10px;
+            color: #1890ff;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .timeline-item {
+                padding-left: 30px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .weather-card {
+                padding: 15px;
+            }
+
+            .weather-icon {
+                font-size: 3em;
+            }
+
+            .spot-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .route-info {
+                padding: 10px;
+            }
+
+            .route-list li {
+                font-size: 14px;
+                padding: 6px;
+            }
+
+            .travelers {
+                flex-wrap: wrap;
+            }
+
+            .car-animation {
+                height: 100px;
+            }
+
+            .tips ul {
+                padding-left: 10px;
+            }
+
+            .tips li {
+                font-size: 14px;
+            }
+
+            .spot-info h3 {
+                font-size: 18px;
+            }
+
+            .spot-info p {
+                font-size: 14px;
+            }
+
+            .spot-details p {
+                font-size: 13px;
+            }
+        }
+
+        /* 添加触摸设备的优化 */
+        @media (hover: none) {
+            .spot-card:hover {
+                transform: none;
+            }
+
+            .avatar:hover {
+                transform: none;
+            }
+        }
+
+        .route-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #28a745;
+        }
+
+        .route-info h4 {
+            color: #28a745;
+            margin-top: 0;
+        }
+
+        .route-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .route-list li {
+            margin: 10px 0;
+            padding: 8px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .route-list li i {
+            margin-right: 8px;
+            color: #28a745;
+        }
+
+        .route-info p {
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px dashed #dee2e6;
+            color: #495057;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-map-marked-alt"></i> 苏州一日游攻略</h1>
+            <p><i class="far fa-calendar-alt"></i> 出发日期：2025年4月5日</p>
+            <div class="travelers">
+                <div class="traveler">
+                    <div class="avatar">
+                        <i class="fas fa-male"></i>
+                    </div>
+                    <span>小磊</span>
+                </div>
+                <div class="traveler">
+                    <div class="avatar">
+                        <i class="fas fa-female"></i>
+                    </div>
+                    <span>小莹</span>
+                </div>
+            </div>
+            <p><i class="fas fa-users"></i> 出行人数：2人</p>
+        </div>
+
+        <div class="weather-card">
+            <i class="fas fa-sun weather-icon"></i>
+            <h2><i class="fas fa-cloud-sun"></i> 明日天气预报</h2>
+            <p><i class="fas fa-thermometer-half"></i> 天气状况：晴</p>
+            <p><i class="fas fa-temperature-high"></i> 温度：12°C ~ 22°C</p>
+            <p><i class="fas fa-wind"></i> 风向：东南风</p>
+            <p><i class="fas fa-leaf"></i> 风力：3-4级</p>
+            <p><i class="fas fa-info-circle"></i> 建议：春季天气温和，非常适合出游，建议携带薄外套，注意防晒。</p>
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <h3><i class="fas fa-car"></i> 07:00 从上海嘉定区出发</h3>
+                <div class="car-animation">
+                    <div class="cloud"><i class="fas fa-cloud"></i></div>
+                    <div class="cloud"><i class="fas fa-cloud"></i></div>
+                    <div class="cloud"><i class="fas fa-cloud"></i></div>
+                    <div class="tree"><i class="fas fa-tree"></i></div>
+                    <div class="tree"><i class="fas fa-tree"></i></div>
+                    <div class="tree"><i class="fas fa-tree"></i></div>
+                    <div class="road-mark"></div>
+                    <div class="road-mark" style="right: 33%;"></div>
+                    <div class="road-mark" style="right: 66%;"></div>
+                    <div class="car">
+                        <i class="fas fa-car-side"></i>
+                    </div>
+                </div>
+                <div class="location">
+                    <p><i class="fas fa-road"></i> 路线：沿G60沪昆高速公路</p>
+                    <p><i class="far fa-clock"></i> 预计车程：约2小时</p>
+                    <p><i class="fas fa-route"></i> 距离：约180公里</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <h3><i class="fas fa-mountain"></i> 09:30 - 12:00 游览东山景区</h3>
+                <div class="location">
+                    <h4><i class="fas fa-landmark"></i> 主要景点：</h4>
+                    <div class="route-info">
+                        <h4><i class="fas fa-route"></i> 景点间路线：</h4>
+                        <ul class="route-list">
+                            <li><i class="fas fa-walking"></i> 陆巷古村 → 启园：步行约15分钟（1.2公里），沿东山镇陆巷路前行</li>
+                            <li><i class="fas fa-walking"></i> 启园 → 雕花楼：步行约20分钟（1.5公里），经堂里村古道</li>
+                            <li><i class="fas fa-car-side"></i> 雕花楼 → 莫厘峰：建议开车，约10分钟（3.5公里）</li>
+                            <li><i class="fas fa-ship"></i> 莫厘峰 → 三山岛：需乘船，约25分钟</li>
+                        </ul>
+                        <p><i class="fas fa-info-circle"></i> 建议游览顺序：陆巷古村 → 启园 → 雕花楼 → 莫厘峰 → 三山岛</p>
+                    </div>
+                    <div class="spot-gallery">
+                        <div class="spot-card">
+                            <img src="images/spots/1636714294996851_836_10000.jpg" class="spot-image" alt="陆巷古村">
+                            <div class="spot-info">
+                                <h4><i class="fas fa-home"></i> 陆巷古村</h4>
+                                <p>陆巷古村是江南典型的水乡古村落，始建于宋代，历史悠久。村内保留着大量明清时期的古建筑，青石板路、小桥流水、粉墙黛瓦，展现了江南水乡的传统风貌。古村内还有众多的祠堂、古宅，是体验江南水乡文化的绝佳去处。</p>
+                                <div class="spot-details">
+                                    <p><i class="far fa-clock"></i> 开放时间：08:00-16:30</p>
+                                    <p><i class="fas fa-ticket-alt"></i> 门票：50元/人</p>
+                                    <p><i class="fas fa-map-marker-alt"></i> 地址：苏州市吴中区东山镇陆巷村</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="spot-card">
+                            <img src="images/spots/20201026081456_30126.jpg" class="spot-image" alt="启园">
+                            <div class="spot-info">
+                                <h4><i class="fas fa-tree"></i> 启园</h4>
+                                <p>启园是一座典型的江南私家园林，园内假山叠石、亭台楼阁布局精巧。园中的水池、廊桥、花木相映成趣，体现了"咫尺之内、自成天地"的江南园林特色。园内四季花木繁茂，特别是春季时节，百花争艳，景色宜人。</p>
+                                <div class="spot-details">
+                                    <p><i class="far fa-clock"></i> 开放时间：08:00-17:00</p>
+                                    <p><i class="fas fa-ticket-alt"></i> 门票：40元/人</p>
+                                    <p><i class="fas fa-map-marker-alt"></i> 地址：苏州市吴中区东山镇</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="spot-card">
+                            <img src="images/spots/v2-4c0e9ff4e6d135297d5dd11f6d59f39a_r.jpg" class="spot-image" alt="雕花楼">
+                            <div class="spot-info">
+                                <h4><i class="fas fa-chess-rook"></i> 雕花楼</h4>
+                                <p>雕花楼又称"春在楼",是东山地区著名的明清建筑,以其精美的木雕艺术闻名。建于20世纪初,由富商所建。楼内的门窗、檐角、栏杆等处都采用高浮雕和透雕技艺,展现了江南地区传统木雕艺术的最高水平。现为重要文物保护单位。</p>
+                                <div class="spot-details">
+                                    <p><i class="far fa-clock"></i> 开放时间：09:00-16:00</p>
+                                    <p><i class="fas fa-ticket-alt"></i> 门票：45元/人</p>
+                                    <p><i class="fas fa-map-marker-alt"></i> 地址：苏州市吴中区东山镇堂里村</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="spot-card">
+                            <img src="images/spots/df491280299e099b2665178cb65be4f5_836_10000.jpg" class="spot-image" alt="莫厘峰">
+                            <div class="spot-info">
+                                <h4><i class="fas fa-mountain"></i> 莫厘峰</h4>
+                                <p>莫厘峰是东山的主峰，海拔293.5米，是太湖72峰之一。登顶可欣赏到太湖全景和周围的秀丽风光，山上植被茂密，空气清新。这里不仅是登山爱好者的必访之地，也是观赏日出、云海的绝佳位置。</p>
+                                <div class="spot-details">
+                                    <p><i class="far fa-clock"></i> 开放时间：07:00-17:30</p>
+                                    <p><i class="fas fa-ticket-alt"></i> 门票：30元/人</p>
+                                    <p><i class="fas fa-map-marker-alt"></i> 地址：苏州市吴中区东山镇莫厘峰景区</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="spot-card">
+                            <img src="images/spots/b7d6-kiweitw7548767.jpg" class="spot-image" alt="三山岛">
+                            <div class="spot-info">
+                                <h4><i class="fas fa-water"></i> 三山岛</h4>
+                                <p>三山岛位于太湖中，是一个风景如画的小岛。岛上不仅有丰富的自然景观，还保留着众多历史遗迹和人文景观。岛上绿树成荫，空气清新，是休闲度假、亲近自然的理想去处。游客可以在此体验渔家生活，品尝太湖特色美食。</p>
+                                <div class="spot-details">
+                                    <p><i class="far fa-clock"></i> 开放时间：08:30-16:30</p>
+                                    <p><i class="fas fa-ticket-alt"></i> 门票：60元/人</p>
+                                    <p><i class="fas fa-map-marker-alt"></i> 地址：苏州市吴中区东山镇三山岛景区</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <h3><i class="fas fa-utensils"></i> 12:00 - 13:00 午餐时间</h3>
+                <div class="location">
+                    <p><i class="fas fa-store"></i> 推荐：陆巷人家</p>
+                    <p><i class="fas fa-fish"></i> 特色：地道江南本地菜</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <h3><i class="fas fa-mountain"></i> 13:00 - 15:30 游览西山景区</h3>
+                <div class="location">
+                    <h4><i class="fas fa-landmark"></i> 主要景点：</h4>
+                    <div class="route-info">
+                        <h4><i class="fas fa-route"></i> 景点间路线：</h4>
+                        <ul class="route-list">
+                            <li><i class="fas fa-walking"></i> 缥缈峰 → 明月湾：步行约25分钟（2公里），沿西山环岛路前行</li>
+                            <li><i class="fas fa-car-side"></i> 明月湾 → 林屋洞：建议开车，约15分钟（4.5公里）</li>
+                            <li><i class="fas fa-car-side"></i> 林屋洞 → 石公山：开车约12分钟（3.8公里）</li>
+                            <li><i class="fas fa-walking"></i> 石公山 → 罗汉古刹：步行约18分钟（1.4公里）</li>
+                            <li><i class="fas fa-walking"></i> 罗汉古刹 → 水月禅寺：步行约20分钟（1.6公里），沿山间小道</li>
+                        </ul>
+                        <p><i class="fas fa-info-circle"></i> 建议游览顺序：缥缈峰 → 明月湾 → 林屋洞 → 石公山 → 罗汉古刹 → 水月禅寺</p>
+                    </div>
+                    <div class="spot-gallery">
+                        <div class="spot-card">
+                            <img src="images/spots/W020210817323928993643.jpg" alt="缥缈峰">
+                            <div class="spot-info">
+                                <h3><i class="fas fa-mountain"></i> 缥缈峰</h3>
+                                <p>缥缈峰是太湖西山的主峰，海拔336米。因常年云雾缭绕，宛如仙境，故得名"缥缈峰"。登顶可欣赏到壮丽的太湖全景。山上种满果树和茶树，春季可赏花，秋季可采果。山顶设有观景台，是观赏日出、云海的绝佳位置。</p>
+                                <div class="spot-details">
+                                    <p><i class="far fa-clock"></i> 开放时间：08:00-16:30</p>
+                                    <p><i class="fas fa-ticket-alt"></i> 门票：80元/人</p>
+                                    <p><i class="fas fa-map-marker-alt"></i> 地址：苏州市吴中区金庭镇西山风景区</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="spot-card">
+                            <img src="images/spots/bafe61364ba8a23137b86a6bcfe0d0e0_836_10000.jpg" alt="明月湾">
+                            <div class="spot-info">
+                                <h3><i class="fas fa-moon"></i> 明月湾</h3>
+                                <p>明月湾以其古朴的江南水乡风情和历史遗迹吸引着众多游客。这里保留着500年历史的古建筑群，有精美的木雕石雕，以及1200年历史的古樟树。村名源于村边小溪的清澈月色倒影，传说西施曾在此赏月。村内有众多祠堂和博物馆展示祭祖文化，是体验江南水乡生活的绝佳去处。</p>
+                                <div class="spot-details">
+                                    <p><i class="far fa-clock"></i> 开放时间：08:00-16:00</p>
+                                    <p><i class="fas fa-ticket-alt"></i> 门票：50元/人</p>
+                                    <p><i class="fas fa-map-marker-alt"></i> 地址：苏州市吴中区金庭镇明月湾村</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="spot-card">
+                            <img src="images/spots/Y8YmwIH2NO.jpg" alt="林屋洞">
+                            <div class="spot-info">
+                                <h3><i class="fas fa-dungeon"></i> 林屋洞</h3>
+                                <p>林屋洞被誉为"天下第九洞"，以其奇特的溶洞景观和丰富的钟乳石formations闻名。洞内冬暖夏凉，是避暑纳凉的好去处。洞内有"天然石画廊"、"地下长河"等景观，钟乳石形态各异，蔚为壮观。游客可乘船游览地下暗河，体验别样的溶洞风光。</p>
+                                <div class="spot-details">
+                                    <p><i class="far fa-clock"></i> 开放时间：08:30-16:00</p>
+                                    <p><i class="fas fa-ticket-alt"></i> 门票：60元/人</p>
+                                    <p><i class="fas fa-map-marker-alt"></i> 地址：苏州市吴中区西山镇林屋洞景区</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="spot-card">
+                            <img src="images/spots/1636714294996851_836_10000.jpg" alt="石公山">
+                            <div class="spot-info">
+                                <h3><i class="fas fa-mountain"></i> 石公山</h3>
+                                <p>石公山以其怪石嶙峋、三面环湖的独特地貌吸引着游客。山上有"一线天"等自然景观，是摄影爱好者的天堂。山顶可俯瞰太湖美景，山间古树参天，景色优美。春秋两季尤其适合登山游览，欣赏太湖日出和晚霞。</p>
+                                <div class="spot-details">
+                                    <p><i class="far fa-clock"></i> 开放时间：07:30-16:30</p>
+                                    <p><i class="fas fa-ticket-alt"></i> 门票：40元/人</p>
+                                    <p><i class="fas fa-map-marker-alt"></i> 地址：苏州市吴中区西山镇石公山景区</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="spot-card">
+                            <img src="images/spots/1661765152353894_836_10000.jpg" alt="罗汉古刹">
+                            <div class="spot-info">
+                                <h3><i class="fas fa-pray"></i> 罗汉古刹</h3>
+                                <p>罗汉古刹是一座历史悠久的佛教寺庙，供奉着众多罗汉像。寺内环境幽静，是修身养性的理想场所。寺院建筑保持着传统的江南佛寺风格，庭院内古木参天，环境清幽。每逢初一十五，这里都会举行传统的佛事活动。</p>
+                                <div class="spot-details">
+                                    <p><i class="far fa-clock"></i> 开放时间：08:00-16:30</p>
+                                    <p><i class="fas fa-ticket-alt"></i> 门票：免费</p>
+                                    <p><i class="fas fa-map-marker-alt"></i> 地址：苏州市吴中区西山镇罗汉古刹</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="spot-card">
+                            <img src="images/spots/1661765152353894_836_10000.jpg" alt="水月禅寺">
+                            <div class="spot-info">
+                                <h3><i class="fas fa-pray"></i> 水月禅寺</h3>
+                                <p>水月禅寺始建于南朝梁代(公元538年),是江南名刹。位于缥缈峰西北麓,因从峰顶望去常被云雾遮掩,如水中月般时隐时现而得名。是观音菩萨三十六相中"水月观音"造像发源地。寺内保存有明代《水月禅寺中兴记》等历史石碑,东首有著名的"无碍泉"。</p>
+                                <div class="spot-details">
+                                    <p><i class="far fa-clock"></i> 开放时间：08:00-16:30</p>
+                                    <p><i class="fas fa-ticket-alt"></i> 门票：免费</p>
+                                    <p><i class="fas fa-map-marker-alt"></i> 地址：苏州市吴中区金庭镇西部环岛旅游公路缥缈峰</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <h3><i class="fas fa-home"></i> 15:30 返程</h3>
+                <div class="car-animation">
+                    <div class="cloud"><i class="fas fa-cloud"></i></div>
+                    <div class="cloud"><i class="fas fa-cloud"></i></div>
+                    <div class="cloud"><i class="fas fa-cloud"></i></div>
+                    <div class="tree"><i class="fas fa-tree"></i></div>
+                    <div class="tree"><i class="fas fa-tree"></i></div>
+                    <div class="tree"><i class="fas fa-tree"></i></div>
+                    <div class="road-mark"></div>
+                    <div class="road-mark" style="right: 33%;"></div>
+                    <div class="road-mark" style="right: 66%;"></div>
+                    <div class="car">
+                        <i class="fas fa-car-side"></i>
+                    </div>
+                </div>
+                <div class="location">
+                    <p><i class="fas fa-road"></i> 路线：沿G60沪昆高速公路返回</p>
+                    <p><i class="far fa-clock"></i> 预计到达时间：18:30左右</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="tips">
+            <h3><i class="fas fa-lightbulb"></i> 出行提示</h3>
+            <ul>
+                <li><i class="fas fa-umbrella"></i> 建议携带物品：防晒用品、帽子、相机、充电宝</li>
+                <li><i class="fas fa-tshirt"></i> 着装建议：薄外套或牛仔裤等轻便服装</li>
+                <li><i class="fas fa-parking"></i> 停车提示：景区均设有停车场，建议提前预留停车时间</li>
+                <li><i class="fas fa-ticket-alt"></i> 门票信息：部分景点需要购买门票，建议提前了解</li>
+                <li><i class="fas fa-utensils"></i> 用餐建议：可以在景区附近的农家乐用餐，体验地道美食</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html> 
