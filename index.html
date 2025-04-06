@@ -1274,18 +1274,38 @@
         /* 修改地图容器样式 */
         .map-container {
             position: relative;
-            width: 280px;
+            width: 290px;
             max-width: 100%;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            background: linear-gradient(135deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff);
+            background-size: 1400% 1400%;
             border-radius: 15px;
             padding: 15px;
+            animation: rainbow 10s ease infinite;
             color: white;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
             margin: 20px 0 20px 20px;
             float: right;
             clear: both;
             overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .map-container:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        @keyframes rainbow {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         #baiduMap {
